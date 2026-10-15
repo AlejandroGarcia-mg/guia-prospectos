@@ -65,6 +65,7 @@
   .renglones { margin: 0 0 1.5rem; padding: 0; list-style: none; max-width: 46rem; color: var(--nuc-ink-suave); }
   .renglones li + li { margin-top: .5rem; }
   .renglones b { font-weight: 600; color: var(--nuc-ink); }
+  .documento a { color: var(--nuc-acc); text-underline-offset: 2px; }
 
   figure { position: relative; margin: 0; }
   figure > svg { display: block; width: 100%; height: auto; }
@@ -98,13 +99,6 @@
   .seccion.texto .renglones { display: grid; gap: 1.25rem; max-width: none; font-size: 1.3rem; line-height: 1.4; }
   .seccion.texto li { margin: 0; padding-left: 1rem; border-left: 4px solid var(--nuc-acc); }
 
-  /* El dibujo de la primera sección */
-  .trazo { fill: var(--nuc-surface); stroke: var(--nuc-ink); stroke-width: 6; stroke-linejoin: round; stroke-linecap: round; }
-  .trazo-suave { fill: var(--nuc-border); stroke: none; }
-  .silencio { fill: none; stroke: var(--nuc-ink-2); stroke-width: 5; stroke-dasharray: 14 12; }
-  .puntos { font-family: Georgia, serif; font-size: 84px; fill: var(--nuc-ink-2); }
-  .rotulo { font-family: system-ui, "Segoe UI", sans-serif; font-size: 36px; fill: var(--nuc-ink); }
-
   /* Pantalla angosta: el panel pasa arriba, como bloque */
   @media (max-width: 64rem) {
     .panel { position: static; width: auto; margin-top: var(--alto-encabezado); padding: 1rem 0; border-right: 0; border-bottom: 1px solid var(--nuc-border-sub); }
@@ -113,6 +107,8 @@
   @media (max-width: 44rem) {
     /* En la mitad derecha de la captura, la etiqueta se alinea al borde derecho del marco para no salirse de la pantalla */
     .marco.derecha b { left: auto; right: -3px; }
+    /* La tabla de permisos cabe sin barra horizontal */
+    .tabla th, .tabla td { padding-left: .6rem; padding-right: .6rem; }
   }
   @media print {
     body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -125,8 +121,11 @@
 <header class="encabezado"><h1>Prospectos: la app</h1></header>
 
 <nav class="panel" aria-label="Índice">
-  <a class="parte" href="#l1"><b>1</b><span>Por qué existe la app</span></a>
-  <a class="grupo" href="#indice"><b>2</b><span>Cómo se usa</span></a>
+  <a class="grupo" href="#l2"><b>1</b><span>Aprende</span></a>
+  <a class="tema" href="#l23"><b>1.1</b><span>Dónde está</span></a>
+  <a class="tema" href="#primer-cliente"><b>1.2</b><span>Tu primer cliente</span></a>
+  <a class="tema" href="#l22"><b>1.3</b><span>Cinco hábitos</span></a>
+  <a class="grupo" href="#indice"><b>2</b><span>Cómo hago…</span></a>
   <a class="tema" href="#g21"><b>2.1</b><span>Entrar y qué ves</span></a>
   <a class="tema" href="#g22"><b>2.2</b><span>Dar de alta a un prospecto</span></a>
   <a class="tema" href="#g23"><b>2.3</b><span>Abrir la ficha y leerla</span></a>
@@ -138,122 +137,134 @@
   <a class="tema" href="#g29"><b>2.9</b><span>Pasar a otro asesor</span></a>
   <a class="tema" href="#g210"><b>2.10</b><span>Entregar</span></a>
   <a class="tema" href="#g211"><b>2.11</b><span>El tablero</span></a>
-  <a class="parte" href="#l7"><b>3</b><span>Las once ramas, una por una</span></a>
-  <a class="parte" href="#l19"><b>4</b><span>Las reglas y lo que pasa por detrás</span></a>
-  <a class="parte" href="#l22"><b>5</b><span>Desde mañana: hábitos y dónde está</span></a>
+  <a class="grupo" href="#consulta"><b>3</b><span>Consulta</span></a>
+  <a class="tema" href="#l7"><b>3.1</b><span>Los once asuntos</span></a>
+  <a class="tema" href="#l19"><b>3.2</b><span>Cuatro reglas</span></a>
+  <a class="tema" href="#l20"><b>3.3</b><span>Lo que la app trae sola</span></a>
+  <a class="tema" href="#l21"><b>3.4</b><span>Quién entra y qué ve</span></a>
+  <a class="tema" href="#l24"><b>3.5</b><span>Lo que todavía no hace</span></a>
 </nav>
 
 <main class="documento">
 
-  <section class="seccion capitulo" id="l1">
-    <p class="bloque">Por qué existe</p>
-    <h2>Hoy, el prospecto vive en tres lugares</h2>
-    <ul class="renglones">
-      <li>En la cabeza del asesor, en el CRM y en la libreta.</li>
-      <li>Nadie sabe en qué va ni cuánto lleva callado.</li>
-    </ul>
-    <figure>
-      <svg viewBox="0 0 1500 560" role="img" aria-label="Tres lugares, cabeza, CRM y libreta, y ninguno contesta">
-        <defs>
-          <!-- La burbuja vacía: lo que cada lugar contesta cuando se le pregunta -->
-          <g id="silencio">
-            <ellipse class="silencio" cx="0" cy="80" rx="96" ry="52"/>
-            <circle class="silencio" cx="-54" cy="152" r="11" style="stroke-dasharray:none"/>
-            <circle class="silencio" cx="-80" cy="184" r="6" style="stroke-dasharray:none"/>
-            <text class="puntos" x="0" y="100" text-anchor="middle">…</text>
-          </g>
-        </defs>
-
-        <!-- La cabeza del asesor -->
-        <g transform="translate(250 0)">
-          <use href="#silencio"/>
-          <path class="trazo" d="M-135 460 C-135 365 -70 335 0 335 C70 335 135 365 135 460 Z"/>
-          <circle class="trazo" cx="0" cy="270" r="74"/>
-          <text class="rotulo" x="0" y="530" text-anchor="middle">La cabeza del asesor</text>
-        </g>
-
-        <!-- El CRM -->
-        <g transform="translate(750 0)">
-          <use href="#silencio"/>
-          <rect class="trazo" x="-160" y="215" width="320" height="200" rx="14"/>
-          <rect class="trazo-suave" x="-130" y="250" width="200" height="22" rx="6"/>
-          <rect class="trazo-suave" x="-130" y="292" width="260" height="22" rx="6"/>
-          <rect class="trazo-suave" x="-130" y="334" width="150" height="22" rx="6"/>
-          <rect class="trazo" x="-32" y="415" width="64" height="28"/>
-          <rect class="trazo" x="-100" y="443" width="200" height="16" rx="8"/>
-          <text class="rotulo" x="0" y="530" text-anchor="middle">El CRM</text>
-        </g>
-
-        <!-- La libreta -->
-        <g transform="translate(1250 0)">
-          <use href="#silencio"/>
-          <rect class="trazo" x="-125" y="215" width="250" height="245" rx="10"/>
-          <g class="trazo" fill="var(--nuc-surface)">
-            <circle cx="-125" cy="245" r="10"/><circle cx="-125" cy="292" r="10"/><circle cx="-125" cy="339" r="10"/>
-            <circle cx="-125" cy="386" r="10"/><circle cx="-125" cy="433" r="10"/>
-          </g>
-          <rect class="trazo-suave" x="-85" y="265" width="180" height="16" rx="6"/>
-          <rect class="trazo-suave" x="-85" y="310" width="140" height="16" rx="6"/>
-          <rect class="trazo-suave" x="-85" y="355" width="170" height="16" rx="6"/>
-          <rect class="trazo-suave" x="-85" y="400" width="110" height="16" rx="6"/>
-          <text class="rotulo" x="0" y="530" text-anchor="middle">La libreta</text>
-        </g>
-      </svg>
-    </figure>
-  </section>
-
-  <section class="seccion captura" id="l2">
-    <p class="bloque">Por qué existe</p>
-    <h3>Un lugar para cada persona que llega</h3>
+  <section class="seccion captura capitulo" id="l2">
+    <p class="bloque">Aprende</p>
+    <h2>Un lugar para cada persona que llega</h2>
     <ul class="renglones">
       <li>Del primer hola a la entrega.</li>
       <li>Para ventas y F&amp;I; gerencia lo mira.</li>
+      <li>¿Primera vez? Sigue este capítulo en orden: <a href="#l23">dónde está</a>, <a href="#primer-cliente">tu primer cliente</a> y <a href="#l22">los cinco hábitos</a>. ¿Ya la usas? Ve directo a <a href="#indice">lo que quieres hacer</a> o a <a href="#consulta">la consulta</a>.</li>
     </ul>
     <figure><img src="capturas/02-la-app.png" alt="La app recién abierta: el saludo y la lista"></figure>
   </section>
 
+  <section class="seccion captura capitulo" id="l23">
+    <p class="bloque">Aprende · 1.1</p>
+    <h2>Dónde está: nucleoadc.ai/prospectos</h2>
+    <ul class="renglones">
+      <li>En el menú del Hub.</li>
+      <li>Se instala en el teléfono.</li>
+    </ul>
+    <figure class="dos">
+      <div><img src="capturas/23a-menu-del-hub.png" alt="El menú del Hub con Prospectos"><span>El menú del Hub</span></div>
+      <div><img src="capturas/23b-en-el-telefono.png" alt="La app en el teléfono"><span>En el teléfono</span></div>
+    </figure>
+  </section>
+
+  <section class="seccion capitulo" id="primer-cliente">
+    <p class="bloque">Aprende · 1.2</p>
+    <h2>Tu primer cliente, de que llega a que se lleva su auto</h2>
+    <ul class="renglones">
+      <li>Así va una venta. No es una fila: cada asunto se abre cuando pasa, en el orden en que pase.</li>
+      <li>En la ficha, «Lo que sigue» dice qué toca ahora (<a href="#g23">2.3</a>).</li>
+    </ul>
+    <ul class="renglones">
+      <li><b>Llega:</b> dalo de alta al momento, con su entrevista (<a href="#g22">2.2</a>). Si ya vino antes, la app te lo dice; si tiene lead en SaleU, lígalo ahí mismo (<a href="#g28">2.8</a>).</li>
+      <li><b>Te da su identificación:</b> súmala a su Expediente; sin ella no se entrega (<a href="#g27">2.7</a>).</li>
+      <li><b>Escoge su auto:</b> asígnale la unidad en cuanto se sepa cuál (<a href="#g26">2.6</a>). Con ella, la app encuentra su factura.</li>
+      <li><b>Trae sus papeles:</b> súbelos en Recepción de Documentos, que se cierra sola cuando están todos (<a href="#g27-7">2.7, paso 7</a>).</li>
+      <li><b>Si financia:</b> F&amp;I lleva la Solicitud de Crédito, el Contrato de Crédito y el Desembolso (<a href="#l7">3.1</a>).</li>
+      <li><b>Paga y se factura:</b> Pago y Factura se mueven solos con lo que registra finanzas; tú solo anotas lo que no se ve, como el apartado (<a href="#l20">3.3</a>).</li>
+      <li><b>Si lleva seguro:</b> ábrele Seguro con «+ Asunto» (<a href="#g25">2.5</a>); puede seguir después de entregar.</li>
+      <li><b>En cada llamada, cita o trámite:</b> anótalo en su asunto, y termínalo cuando quede resuelto (<a href="#g24">2.4</a>).</li>
+      <li><b>Se lo lleva:</b> cierra Entrega. Sale de tus vivos y nacen solas la Encuesta de satisfacción y la 1ª cita de servicio (<a href="#g210">2.10</a>).</li>
+    </ul>
+  </section>
+
+  <section class="seccion capitulo" id="l22">
+    <p class="bloque">Aprende · 1.3</p>
+    <h2>Cinco hábitos</h2>
+    <ul class="renglones">
+      <li>Cuando los haces sin pensarlo, ya estás listo para trabajar con la app. Cada uno lleva a su tarea.</li>
+    </ul>
+    <figure class="iconos">
+      <div>
+        <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="icono" cx="40" cy="34" r="15"/><path class="icono" d="M14 84 c0-18 12-28 26-28 s26 10 26 28"/><line class="icono icono-acento" x1="76" y1="44" x2="76" y2="68"/><line class="icono icono-acento" x1="64" y1="56" x2="88" y2="56"/></svg>
+        <span><a href="#g22">Dar de alta al momento.</a></span>
+      </div>
+      <div>
+        <svg viewBox="0 0 100 100" aria-hidden="true"><path class="icono" d="M26 74 L30 60 L68 22 L78 32 L40 70 Z"/><line class="icono icono-acento" x1="62" y1="28" x2="72" y2="38"/><line class="icono" x1="22" y1="86" x2="78" y2="86"/></svg>
+        <span><a href="#g24">Anotar lo que pasa.</a></span>
+      </div>
+      <div>
+        <svg viewBox="0 0 100 100" aria-hidden="true"><rect class="icono" x="22" y="22" width="56" height="56" rx="8"/><polyline class="icono icono-acento" points="36,52 46,62 66,40"/></svg>
+        <span><a href="#g24-3">Cerrar la rama.</a></span>
+      </div>
+      <div>
+        <svg viewBox="0 0 100 100" aria-hidden="true"><path class="icono" d="M30 14 H58 L74 30 V86 H30 Z"/><path class="icono" d="M58 14 V30 H74"/><line class="icono icono-acento" x1="52" y1="72" x2="52" y2="46"/><polyline class="icono icono-acento" points="42,56 52,46 62,56"/></svg>
+        <span><a href="#g27">Subir los papeles.</a></span>
+      </div>
+      <div>
+        <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="icono" cx="32" cy="50" r="15"/><line class="icono icono-acento" x1="47" y1="50" x2="88" y2="50"/><line class="icono icono-acento" x1="72" y1="50" x2="72" y2="63"/><line class="icono icono-acento" x1="84" y1="50" x2="84" y2="60"/></svg>
+        <span><a href="#g210">Cerrar Entrega.</a></span>
+      </div>
+    </figure>
+  </section>
+
   <section class="seccion capitulo" id="indice">
-    <p class="bloque">Cómo se usa</p>
+    <p class="bloque">Cómo hago</p>
     <h2>Qué quieres hacer</h2>
     <ul class="renglones">
-      <li>Una sección por tarea: qué es, sus pasos y la captura de cada paso.</li>
+      <li>Una sección por tarea: qué es, sus pasos y la captura de cada paso. ¿Primera vez? Empieza por <a href="#primer-cliente">tu primer cliente</a>.</li>
+      <li>En cada tarea, <b>Ten a la mano</b> dice qué preparar. En cada paso, <b>Qué pasa después</b> dice cómo sabes que quedó, <b>Ojo</b> lo que se te puede pasar y <b>Automático</b> lo que la app hace sola.</li>
     </ul>
   </section>
 
   <section class="seccion captura paso capitulo" id="g21">
-    <p class="bloque">Cómo se usa · 2.1</p>
+    <p class="bloque">Cómo hago · 2.1</p>
     <h2>Entrar y qué ves</h2>
     <ul class="renglones">
       <li>Al entrar, la app dice cuántos prospectos vivos llevas y cuántos llevan rato sin novedad.</li>
       <li>La lista pone arriba al que lleva más días sin novedad: por ahí se empieza el día.</li>
       <li>Cuatro pasos: saludo y anillo · la lista · filtrar y buscar · lista o tablero.</li>
+      <li><b>Ten a la mano:</b> tu usuario del Hub. Si no ves Prospectos en el menú, pide el permiso a Sistemas.</li>
     </ul>
     <figure><img src="capturas/guia/2.1-1-la-app.png" alt="La app recién abierta"></figure>
   </section>
 
   <section class="seccion captura paso" id="g21-1">
-    <p class="bloque">Cómo se usa · 2.1 Entrar y qué ves · Paso 1 de 4</p>
+    <p class="bloque">Cómo hago · 2.1 Entrar y qué ves · Paso 1 de 4</p>
     <h3>El saludo dice cuántos vivos llevas; el anillo, qué parte está al día</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> «sin novedad hace rato» cuenta los que llevan días sin moverse; el anillo da el porcentaje «al día». «Frío» es el que lleva 7 días o más sin novedad.</li>
-      <li><b>Qué pasa después:</b> nada que tocar: es la foto del día, y cambia sola conforme anotas.</li>
+      <li><b>Automático:</b> nada que tocar: es la foto del día, y cambia sola conforme anotas.</li>
     </ul>
     <figure><img src="capturas/guia/2.1-1-la-app.png" alt="El saludo y el anillo"><i class="marco" style="left:7.5%;top:18.2%;width:23.4%;height:6.6%"><b>Saludo</b></i><i class="marco" style="left:35.8%;top:19%;width:5.5%;height:5%"><b>Anillo</b></i></figure>
   </section>
 
   <section class="seccion captura paso" id="g21-2">
-    <p class="bloque">Cómo se usa · 2.1 Entrar y qué ves · Paso 2 de 4</p>
+    <p class="bloque">Cómo hago · 2.1 Entrar y qué ves · Paso 2 de 4</p>
     <h3>La lista: arriba el que lleva más días sin novedad</h3>
     <ul class="renglones">
       <li><b>Cada renglón:</b> quién es, su folio y su asesor, los días sin novedad y lo último que pasó.</li>
-      <li><b>Qué pasa después:</b> tocar un renglón abre su ficha (2.3). «Orden» cambia el acomodo.</li>
-      <li><b>Ojo:</b> Los entregados van al final, atenuados y con su sello «entregado» (2.10).</li>
+      <li><b>Qué pasa después:</b> tocar un renglón abre su ficha (<a href="#g23">2.3</a>). «Orden» cambia el acomodo.</li>
+      <li><b>Ojo:</b> Los entregados van al final, atenuados y con su sello «entregado» (<a href="#g210">2.10</a>).</li>
     </ul>
     <figure><img src="capturas/guia/2.1-1-la-app.png" alt="La lista de vivos"><i class="marco" style="left:7.5%;top:33.4%;width:85%;height:7%"><b>El que lleva más tiempo callado</b></i><i class="marco derecha" style="left:83.1%;top:27.9%;width:13.8%;height:2.5%"><b>Orden</b></i></figure>
   </section>
 
   <section class="seccion captura paso" id="g21-3">
-    <p class="bloque">Cómo se usa · 2.1 Entrar y qué ves · Paso 3 de 4</p>
+    <p class="bloque">Cómo hago · 2.1 Entrar y qué ves · Paso 3 de 4</p>
     <h3>Filtra por «Hace rato» o «Más de una semana», o busca por nombre o folio</h3>
     <ul class="renglones">
       <li><b>Qué pasa después:</b> la lista se queda solo con los que cumplen; «Todos» la devuelve entera.</li>
@@ -265,28 +276,29 @@
   </section>
 
   <section class="seccion captura paso" id="g21-4">
-    <p class="bloque">Cómo se usa · 2.1 Entrar y qué ves · Paso 4 de 4</p>
+    <p class="bloque">Cómo hago · 2.1 Entrar y qué ves · Paso 4 de 4</p>
     <h3>Lista o tablero: la misma gente, acomodada por asunto</h3>
     <ul class="renglones">
-      <li><b>Qué pasa después:</b> en el tablero cada columna es un asunto; una tarjeta se arrastra para abrirle otro asunto (2.11).</li>
+      <li><b>Qué pasa después:</b> en el tablero cada columna es un asunto; una tarjeta se arrastra para abrirle otro asunto (<a href="#g211">2.11</a>).</li>
       <li><b>Copiar la lista</b> (o el tablero) la deja lista para pegarla en un mensaje.</li>
     </ul>
     <figure><img src="capturas/guia/2.1-4-tablero.png" alt="El tablero"><i class="marco derecha" style="left:75.1%;top:19.8%;width:11.2%;height:3.3%"><b>Lista · Tablero</b></i><i class="marco derecha" style="left:54.1%;top:19.8%;width:9.7%;height:3.3%"><b>Copiar</b></i></figure>
   </section>
 
   <section class="seccion captura paso capitulo" id="g22">
-    <p class="bloque">Cómo se usa · 2.2</p>
+    <p class="bloque">Cómo hago · 2.2</p>
     <h2>Dar de alta a un prospecto</h2>
     <ul class="renglones">
       <li>Cada persona que llega se registra al momento, en dos pasos: quién es y la entrevista.</li>
       <li>Si ya vino antes, la app pregunta si es la misma persona (por su teléfono o su correo) para no registrarla dos veces.</li>
       <li>Cinco pasos: abrir · quién es · ¿es la misma persona? · la entrevista · crear.</li>
+      <li><b>Ten a la mano:</b> su nombre completo, su teléfono y su correo, y unos minutos para la entrevista: cuatro preguntas, nueve si financia.</li>
     </ul>
     <figure><img src="capturas/guia/2.2-1-abrir.png" alt="La ventana Nuevo prospecto recién abierta"></figure>
   </section>
 
   <section class="seccion captura paso" id="g22-1">
-    <p class="bloque">Cómo se usa · 2.2 Dar de alta · Paso 1 de 5</p>
+    <p class="bloque">Cómo hago · 2.2 Dar de alta · Paso 1 de 5</p>
     <h3>Toca «+ prospecto» en la lista</h3>
     <ul class="renglones">
       <li><b>Qué pasa después:</b> se abre la ventana «Nuevo prospecto», en su paso «Quién es»; la lista se queda atrás.</li>
@@ -298,7 +310,7 @@
   </section>
 
   <section class="seccion captura paso" id="g22-2">
-    <p class="bloque">Cómo se usa · 2.2 Dar de alta · Paso 2 de 5</p>
+    <p class="bloque">Cómo hago · 2.2 Dar de alta · Paso 2 de 5</p>
     <h3>Quién es: el nombre en tres partes, cuándo se entrevistó, teléfono y correo</h3>
     <ul class="renglones">
       <li><b>Qué pasa después:</b> al escribir el teléfono o el correo, la app busca si ya existe (paso 3); «Continuar» pasa a la entrevista.</li>
@@ -308,7 +320,7 @@
   </section>
 
   <section class="seccion captura paso" id="g22-3">
-    <p class="bloque">Cómo se usa · 2.2 Dar de alta · Paso 3 de 5</p>
+    <p class="bloque">Cómo hago · 2.2 Dar de alta · Paso 3 de 5</p>
     <h3>¿Es la misma persona? Si el teléfono o el correo ya son de alguien, la app lo dice</h3>
     <ul class="renglones">
       <li><b>Qué pasa después:</b> «Ver su ficha» lleva al prospecto que ya existe; «Es otra persona» sigue con el alta.</li>
@@ -318,11 +330,11 @@
   </section>
 
   <section class="seccion captura paso" id="g22-4">
-    <p class="bloque">Cómo se usa · 2.2 Dar de alta · Paso 4 de 5</p>
+    <p class="bloque">Cómo hago · 2.2 Dar de alta · Paso 4 de 5</p>
     <h3>La entrevista: cuatro preguntas para todos; si financia, cinco más</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Las cuatro de siempre: cómo nos conoció, nuevo o seminuevo, cómo paga y si trae auto a cuenta. Con financiamiento salen cinco más: edad, enganche, mensualidad, a qué se dedica y cómo comprueba ingresos.</li>
-      <li><b>Qué pasa después:</b> el borrador se guarda solo durante 24 horas: si cierras, al volver sigues donde ibas.</li>
+      <li><b>Automático:</b> el borrador se guarda solo durante 24 horas: si cierras, al volver sigues donde ibas.</li>
     </ul>
     <figure class="dos">
       <div><img src="capturas/guia/2.2-4-entrevista.png" alt="Las primeras preguntas"><i class="marco" style="left:27.5%;top:32.4%;width:14%;height:43.3%"><b>Preguntas</b></i><span>Preguntas 1 a 5</span></div>
@@ -331,16 +343,16 @@
   </section>
 
   <section class="seccion captura paso" id="g22-5">
-    <p class="bloque">Cómo se usa · 2.2 Dar de alta · Paso 5 de 5</p>
+    <p class="bloque">Cómo hago · 2.2 Dar de alta · Paso 5 de 5</p>
     <h3>«Crear el prospecto»: nace con su folio y se abre su ficha</h3>
     <ul class="renglones">
-      <li><b>Qué pasa después:</b> ya está en la lista, con «se movió hoy». Lo que sigue es sumar su identificación en el Expediente (2.7): sin ella no se entrega.</li>
+      <li><b>Qué pasa después:</b> ya está en la lista, con «se movió hoy». Lo que sigue es sumar su identificación en el Expediente (<a href="#g27">2.7</a>): sin ella no se entrega.</li>
     </ul>
     <figure><img src="capturas/guia/2.2-5-creado.png" alt="La ficha del prospecto recién creado"><i class="marco derecha" style="left:40%;top:8.5%;width:24%;height:9.5%"><b>Su ficha, con folio</b></i><i class="marco" style="left:7.5%;top:83.8%;width:31%;height:10.6%"><b>Ya está en la lista</b></i></figure>
   </section>
 
   <section class="seccion captura paso capitulo" id="g23">
-    <p class="bloque">Cómo se usa · 2.3</p>
+    <p class="bloque">Cómo hago · 2.3</p>
     <h2>Abrir la ficha y leerla</h2>
     <ul class="renglones">
       <li>La ficha reúne todo lo de un prospecto: quién es, en qué va y qué le ha pasado.</li>
@@ -351,7 +363,7 @@
   </section>
 
   <section class="seccion captura paso" id="g23-1">
-    <p class="bloque">Cómo se usa · 2.3 Abrir la ficha y leerla · Paso 1 de 5</p>
+    <p class="bloque">Cómo hago · 2.3 Abrir la ficha y leerla · Paso 1 de 5</p>
     <h3>Toca el renglón del prospecto en la lista</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Arriba de la ficha van su nombre, su folio, quién lo lleva, el chip de la identificación y los días sin novedad.</li>
@@ -364,7 +376,7 @@
   </section>
 
   <section class="seccion captura paso" id="g23-2">
-    <p class="bloque">Cómo se usa · 2.3 Abrir la ficha y leerla · Paso 2 de 5</p>
+    <p class="bloque">Cómo hago · 2.3 Abrir la ficha y leerla · Paso 2 de 5</p>
     <h3>«Órbita» o «Camino»: dos formas de ver los asuntos</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Camino los pone en fila, de la Entrevista a la Entrega, y «va aquí» marca por dónde va. Órbita pone al prospecto al centro y sus asuntos alrededor.</li>
@@ -378,10 +390,10 @@
   </section>
 
   <section class="seccion captura paso" id="g23-3">
-    <p class="bloque">Cómo se usa · 2.3 Abrir la ficha y leerla · Paso 3 de 5</p>
+    <p class="bloque">Cómo hago · 2.3 Abrir la ficha y leerla · Paso 3 de 5</p>
     <h3>«Lo que sigue» dice qué toca hacer ahora con este prospecto</h3>
     <ul class="renglones">
-      <li><b>Fíjate en:</b> Un título y una frase que la app arma sola: primero la entrevista, luego la identificación y luego el asunto abierto.</li>
+      <li><b>Automático:</b> Un título y una frase que la app arma sola: primero la entrevista, luego la identificación y luego el asunto abierto.</li>
       <li><b>Qué pasa después:</b> Tocarlo te lleva a donde se resuelve: aquí, a «Identificaciones» del Expediente; con un asunto abierto, a su panel.</li>
       <li><b>Ojo:</b> Sin identificación no se entrega: por eso «Falta su identificación» va por delante de cualquier asunto abierto.</li>
     </ul>
@@ -392,7 +404,7 @@
   </section>
 
   <section class="seccion captura paso" id="g23-4">
-    <p class="bloque">Cómo se usa · 2.3 Abrir la ficha y leerla · Paso 4 de 5</p>
+    <p class="bloque">Cómo hago · 2.3 Abrir la ficha y leerla · Paso 4 de 5</p>
     <h3>«Lo que le ha pasado» va por asunto; «ver todo» abre el resto</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> «Lo que le ha pasado» es la historia del prospecto: un bloque por asunto, más uno de «El prospecto». Cada renglón dice qué pasó, cuándo y quién lo registró; el punto azul marca lo último que le pasó.</li>
@@ -406,7 +418,7 @@
   </section>
 
   <section class="seccion captura paso" id="g23-5">
-    <p class="bloque">Cómo se usa · 2.3 Abrir la ficha y leerla · Paso 5 de 5</p>
+    <p class="bloque">Cómo hago · 2.3 Abrir la ficha y leerla · Paso 5 de 5</p>
     <h3>«Pantalla completa» y el chip bajo el nombre</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Junto a la ✕, el botón de las flechas. Bajo el nombre, el chip: «Falta su identificación» en ámbar o, si ya la tiene, su tipo y número (con «+N» si hay más).</li>
@@ -420,7 +432,7 @@
   </section>
 
   <section class="seccion captura paso capitulo" id="g24">
-    <p class="bloque">Cómo se usa · 2.4</p>
+    <p class="bloque">Cómo hago · 2.4</p>
     <h2>Anotar, terminar y reabrir un asunto</h2>
     <ul class="renglones">
       <li>Cada asunto del prospecto lleva su propia historia: ahí se anota lo que va pasando.</li>
@@ -431,10 +443,10 @@
   </section>
 
   <section class="seccion captura paso" id="g24-1">
-    <p class="bloque">Cómo se usa · 2.4 Anotar lo que pasa · Paso 1 de 4</p>
+    <p class="bloque">Cómo hago · 2.4 Anotar lo que pasa · Paso 1 de 4</p>
     <h3>Toca «Anotar dónde va», escribe una línea y toca «Anotar»</h3>
     <ul class="renglones">
-      <li><b>Antes de empezar:</b> Abre la ficha del prospecto y toca el asunto (2.3). Su panel trae la historia y los botones.</li>
+      <li><b>Antes de empezar:</b> Abre la ficha del prospecto y toca el asunto (<a href="#g23">2.3</a>). Su panel trae la historia y los botones.</li>
       <li><b>Qué pasa después:</b> La nota entra a «Lo que le ha pasado», con fecha, hora y quién la anotó. También pasa a ser lo último que dice el asunto: bajo su nombre y en el Camino.</li>
       <li><b>Ojo:</b> Si el asunto aún no estaba abierto y tu rol puede abrirlo, la primera nota lo abre. Recepción de Documentos no se anota a mano: ahí se adjuntan los papeles.</li>
     </ul>
@@ -445,7 +457,7 @@
   </section>
 
   <section class="seccion captura paso" id="g24-2">
-    <p class="bloque">Cómo se usa · 2.4 Anotar lo que pasa · Paso 2 de 4</p>
+    <p class="bloque">Cómo hago · 2.4 Anotar lo que pasa · Paso 2 de 4</p>
     <h3>Con el campo abierto, escribe «/» y elige una frase hecha</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> La lista ofrece «/llame», «/cita» y «/docs», cada una con su frase. Si sigues escribiendo, quedan solo las que empiezan igual.</li>
@@ -459,7 +471,7 @@
   </section>
 
   <section class="seccion captura paso" id="g24-3">
-    <p class="bloque">Cómo se usa · 2.4 Anotar lo que pasa · Paso 3 de 4</p>
+    <p class="bloque">Cómo hago · 2.4 Anotar lo que pasa · Paso 3 de 4</p>
     <h3>Sostén «Mantén para terminar» un segundo y cuenta cómo terminó</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Mientras lo sostienes, una barra se llena bajo el botón. Si lo sueltas antes de que se llene, no pasa nada.</li>
@@ -473,7 +485,7 @@
   </section>
 
   <section class="seccion captura paso" id="g24-4">
-    <p class="bloque">Cómo se usa · 2.4 Anotar lo que pasa · Paso 4 de 4</p>
+    <p class="bloque">Cómo hago · 2.4 Anotar lo que pasa · Paso 4 de 4</p>
     <h3>Para reabrir un asunto cerrado, anota algo en él</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> El asunto cerrado lleva la marca «CERRADA» junto a «Anotar dónde va». Ya no trae «Mantén para terminar».</li>
@@ -487,7 +499,7 @@
   </section>
 
   <section class="seccion captura paso capitulo" id="g25">
-    <p class="bloque">Cómo se usa · 2.5</p>
+    <p class="bloque">Cómo hago · 2.5</p>
     <h2>Abrir un asunto a un prospecto</h2>
     <ul class="renglones">
       <li>Un asunto es cada tema que llevas de un prospecto: la unidad, el crédito, el seguro, la entrega.</li>
@@ -498,7 +510,7 @@
   </section>
 
   <section class="seccion captura paso" id="g25-1">
-    <p class="bloque">Cómo se usa · 2.5 Abrir un asunto · Paso 1 de 2</p>
+    <p class="bloque">Cómo hago · 2.5 Abrir un asunto · Paso 1 de 2</p>
     <h3>Toca «+ Asunto», elige uno de la lista y anota su primer toque</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> La lista trae solo los asuntos que el prospecto todavía no tiene y que tu rol puede abrir.</li>
@@ -512,11 +524,11 @@
   </section>
 
   <section class="seccion captura paso" id="g25-2">
-    <p class="bloque">Cómo se usa · 2.5 Abrir un asunto · Paso 2 de 2</p>
+    <p class="bloque">Cómo hago · 2.5 Abrir un asunto · Paso 2 de 2</p>
     <h3>Unos asuntos nacen solos y otros se mueven solos</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> La Entrevista no sale: ya existe desde el alta. La Encuesta de satisfacción y la 1ª cita de servicio tampoco: nacen solas al cerrarse la Entrega.</li>
-      <li><b>Qué pasa después:</b> Factura y Pago también salen, pero se mueven solos. Con la unidad asignada, la app los lee de finanzas y los cierra cuando cuadran.</li>
+      <li><b>Automático:</b> Factura y Pago también salen, pero se mueven solos. Con la unidad asignada, la app los lee de finanzas y los cierra cuando cuadran.</li>
       <li><b>Ojo:</b> Recepción de Documentos sí sale, pero no se anota a mano: se abre con su primer papel y se cierra sola cuando llegan los necesarios.</li>
     </ul>
     <figure class="dos">
@@ -526,18 +538,19 @@
   </section>
 
   <section class="seccion captura paso capitulo" id="g26">
-    <p class="bloque">Cómo se usa · 2.6</p>
+    <p class="bloque">Cómo hago · 2.6</p>
     <h2>Asignar la unidad a un prospecto</h2>
     <ul class="renglones">
       <li>La unidad es el auto que el prospecto va a comprar: se elige del inventario y queda ligada a su ficha.</li>
       <li>Se hace en cuanto se sabe cuál es. Con ella la app encuentra la factura; sin ella, Factura y Entrega avisan «La unidad todavía no está asignada».</li>
       <li>Cuatro pasos: abrir Unidad · el catálogo visual · buscar por VIN · cambiar la unidad</li>
+      <li><b>Ten a la mano:</b> el modelo que quiere o el VIN de la unidad; bastan sus últimos 6.</li>
     </ul>
     <figure><img src="capturas/guia/2.6-1-inicio.png" alt="La ficha de un prospecto sin asuntos: «Lo que sigue» dice «Abrir el primer asunto» y arriba a la derecha está «+ Asunto»"></figure>
   </section>
 
   <section class="seccion captura paso" id="g26-1">
-    <p class="bloque">Cómo se usa · 2.6 Asignar la unidad · Paso 1 de 4</p>
+    <p class="bloque">Cómo hago · 2.6 Asignar la unidad · Paso 1 de 4</p>
     <h3>Toca «+ Asunto» y elige «Unidad»</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> «+ Asunto» está arriba a la derecha del Camino. Con identificación y sin ningún asunto, «Lo que sigue» dice «Abrir el primer asunto» y abre el mismo menú; si falta la identificación, pide esa primero.</li>
@@ -551,7 +564,7 @@
   </section>
 
   <section class="seccion captura paso" id="g26-2">
-    <p class="bloque">Cómo se usa · 2.6 Asignar la unidad · Paso 2 de 4</p>
+    <p class="bloque">Cómo hago · 2.6 Asignar la unidad · Paso 2 de 4</p>
     <h3>Toca «Asignar unidad»: el catálogo abre en el modelo que pidió</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Abre en el modelo que dijo en la entrevista, con filtros de color y versión. «Todos» lleva a la lista de modelos, con una estrella ★ en el que pidió.</li>
@@ -565,7 +578,7 @@
   </section>
 
   <section class="seccion captura paso" id="g26-3">
-    <p class="bloque">Cómo se usa · 2.6 Asignar la unidad · Paso 3 de 4</p>
+    <p class="bloque">Cómo hago · 2.6 Asignar la unidad · Paso 3 de 4</p>
     <h3>Teclea el VIN (o los últimos 6) y toca «Asignar esta unidad»</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> El buscador acepta el VIN, sus últimos 6 dígitos, el modelo o el color. Al tocar la tarjeta, «La unidad elegida» muestra el VIN completo.</li>
@@ -579,7 +592,7 @@
   </section>
 
   <section class="seccion captura paso" id="g26-4">
-    <p class="bloque">Cómo se usa · 2.6 Asignar la unidad · Paso 4 de 4</p>
+    <p class="bloque">Cómo hago · 2.6 Asignar la unidad · Paso 4 de 4</p>
     <h3>Toca «Cambiar la unidad», elige otra y toca «Asignar esta unidad»</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Con la unidad asignada, el botón ya no dice «Asignar unidad» sino «Cambiar la unidad»; arriba quedan la unidad actual y su historia.</li>
@@ -593,18 +606,19 @@
   </section>
 
   <section class="seccion captura paso capitulo" id="g27">
-    <p class="bloque">Cómo se usa · 2.7</p>
+    <p class="bloque">Cómo hago · 2.7</p>
     <h2>Completar el Expediente de un prospecto</h2>
     <ul class="renglones">
       <li>El Expediente guarda lo que se sabe de la persona: su contacto, sus identificaciones y sus papeles, más los papeles de este prospecto.</li>
       <li>Se completa en la ficha durante la venta; sin una identificación, la Entrega no se cierra.</li>
       <li>Siete pasos: abrirlo y el contacto · sumar una identificación · elegir cuál adjuntar · las dos fotos de la INE · lo que leyó el lector · la identificación ya guardada · papeles de este prospecto.</li>
+      <li><b>Ten a la mano:</b> su identificación (de la INE, foto del frente y del reverso, derechas) y los papeles de la visita: comprobante de domicilio, de ingresos y constancia de situación fiscal, en foto o PDF de hasta 10 MB.</li>
     </ul>
     <figure><img src="capturas/guia/2.7-1-antes.png" alt="El Expediente de un prospecto: contacto, identificaciones y papeles"></figure>
   </section>
 
   <section class="seccion captura paso" id="g27-1">
-    <p class="bloque">Cómo se usa · 2.7 El Expediente · Paso 1 de 7</p>
+    <p class="bloque">Cómo hago · 2.7 El Expediente · Paso 1 de 7</p>
     <h3>Abre la ficha, baja al Expediente y toca un dato del contacto</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Teléfono y correo traen «Llamar» o «Escribir» y «Copiar»; dirección y RFC, solo «Copiar». Lo que falta dice «sin dirección» o «sin RFC».</li>
@@ -618,7 +632,7 @@
   </section>
 
   <section class="seccion captura paso" id="g27-2">
-    <p class="bloque">Cómo se usa · 2.7 El Expediente · Paso 2 de 7</p>
+    <p class="bloque">Cómo hago · 2.7 El Expediente · Paso 2 de 7</p>
     <h3>Toca «Sumar una identificación», elige cuál es y teclea su número</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Sin ninguna identificación, un aviso ámbar dice «Falta su identificación». Los tipos son INE (clave de elector), CURP, pasaporte, licencia de conducir, cédula profesional y «Otra», que pide escribir cuál es.</li>
@@ -632,7 +646,7 @@
   </section>
 
   <section class="seccion captura paso" id="g27-3">
-    <p class="bloque">Cómo se usa · 2.7 El Expediente · Paso 3 de 7</p>
+    <p class="bloque">Cómo hago · 2.7 El Expediente · Paso 3 de 7</p>
     <h3>Papeles de la persona: toca «Adjuntar» en la identificación y elige cuál es</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Cada papel dice «Sin documento» hasta que se sube; ya subido, dice «Subido el…» y su botón pasa a «Cambiar». No caducan: lo que subas sirve a todos los prospectos de esa persona.</li>
@@ -646,7 +660,7 @@
   </section>
 
   <section class="seccion captura paso" id="g27-4">
-    <p class="bloque">Cómo se usa · 2.7 El Expediente · Paso 4 de 7</p>
+    <p class="bloque">Cómo hago · 2.7 El Expediente · Paso 4 de 7</p>
     <h3>Elige INE, pon el frente y el reverso y toca «Guardar»</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Son dos fotos, cada una con su cuadro: al ponerla, dice «Frente ✓» o «Reverso ✓». «Guardar» se activa cuando están las dos.</li>
@@ -660,7 +674,7 @@
   </section>
 
   <section class="seccion captura paso" id="g27-5">
-    <p class="bloque">Cómo se usa · 2.7 El Expediente · Paso 5 de 7</p>
+    <p class="bloque">Cómo hago · 2.7 El Expediente · Paso 5 de 7</p>
     <h3>Revisa lo que leyó el lector y confirma lo dudoso con «Es correcto»</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Lo que el lector comprobó lleva ✓ y «leído por el lector: cuadra». Lo que dudó lleva «?», un dibujo de la credencial con su zona marcada y el valor leído en un campo.</li>
@@ -674,7 +688,7 @@
   </section>
 
   <section class="seccion captura paso" id="g27-6">
-    <p class="bloque">Cómo se usa · 2.7 El Expediente · Paso 6 de 7</p>
+    <p class="bloque">Cómo hago · 2.7 El Expediente · Paso 6 de 7</p>
     <h3>Mira «Identificaciones»: la INE ya quedó guardada</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> La clave de elector (INE, principal) y la CURP quedan en la lista como «leída», con la fecha. El aviso ámbar «Falta su identificación» ya no sale.</li>
@@ -685,12 +699,12 @@
   </section>
 
   <section class="seccion captura paso" id="g27-7">
-    <p class="bloque">Cómo se usa · 2.7 El Expediente · Paso 7 de 7</p>
+    <p class="bloque">Cómo hago · 2.7 El Expediente · Paso 7 de 7</p>
     <h3>Papeles de este prospecto: toca un papel para ir a Recepción de Documentos</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Son los papeles de esta visita: comprobante de domicilio, comprobante de ingresos y constancia de situación fiscal. Cada papel dice «falta» (rojo), «opcional» (gris) o «recibido el…» (verde).</li>
       <li><b>Qué pasa después:</b> Tocar un papel abre el asunto Recepción de Documentos, donde cada papel tiene su «Adjuntar». Al recibirse el papel, el papel se pone verde y dice «recibido el…».</li>
-      <li><b>Ojo:</b> Aquí los papeles de este prospecto solo se ven: se adjuntan en Recepción de Documentos. Si el prospecto no tiene ese asunto, los papeles no se tocan: ábrelo con «+ Asunto» (2.5) y adjunta ahí el primer papel.</li>
+      <li><b>Ojo:</b> Aquí los papeles de este prospecto solo se ven: se adjuntan en Recepción de Documentos. Si el prospecto no tiene ese asunto, los papeles no se tocan: ábrelo con «+ Asunto» (<a href="#g25">2.5</a>) y adjunta ahí el primer papel.</li>
     </ul>
     <figure class="dos">
       <div><img src="capturas/guia/2.7-4-antes.png" alt="Los tres papeles de este prospecto: dos faltan y uno es opcional"><i class="marco derecha" style="left:54.9%;top:70.7%;width:28.4%;height:14.4%"><b>Falta</b></i><i class="marco derecha" style="left:83.6%;top:70.7%;width:14.0%;height:14.4%"><b>Opcional</b></i><span>Antes</span></div>
@@ -699,18 +713,19 @@
   </section>
 
   <section class="seccion captura paso capitulo" id="g28">
-    <p class="bloque">Cómo se usa · 2.8</p>
+    <p class="bloque">Cómo hago · 2.8</p>
     <h2>Ligar el lead de SaleU</h2>
     <ul class="renglones">
       <li>Liga al prospecto con el lead que la persona ya tiene en SaleU, para que lo que pase allá se vea en su historia.</li>
       <li>Se hace al dar de alta al prospecto, si la app encuentra su lead por teléfono o correo, o después desde su ficha.</li>
       <li>Tres pasos: dónde aparece el lead · elegir al candidato · lo que aparece en la historia.</li>
+      <li><b>Ten a la mano:</b> su teléfono o su correo, completos.</li>
     </ul>
     <figure><img src="capturas/guia/2.8-1-alta.png" alt="El alta con dos candidatos de SaleU bajo el contacto"></figure>
   </section>
 
   <section class="seccion captura paso" id="g28-1">
-    <p class="bloque">Cómo se usa · 2.8 Ligar el lead de SaleU · Paso 1 de 3</p>
+    <p class="bloque">Cómo hago · 2.8 Ligar el lead de SaleU · Paso 1 de 3</p>
     <h3>Escribe el teléfono o el correo: si la persona está en SaleU, su lead aparece</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> En el alta, el lead aparece bajo Contacto en cuanto escribes un teléfono completo o un correo. En la ficha, toca «CRM · sin ligar» en el Camino para verlo.</li>
@@ -724,7 +739,7 @@
   </section>
 
   <section class="seccion captura paso" id="g28-2">
-    <p class="bloque">Cómo se usa · 2.8 Ligar el lead de SaleU · Paso 2 de 3</p>
+    <p class="bloque">Cómo hago · 2.8 Ligar el lead de SaleU · Paso 2 de 3</p>
     <h3>Marca al candidato que es la persona y toca «Ligar con este lead»</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Con varios candidatos, tú eliges: en la ficha, el botón espera a que marques uno. «Ninguno es esta persona» sirve si ninguno cuadra.</li>
@@ -738,29 +753,30 @@
   </section>
 
   <section class="seccion captura paso" id="g28-3">
-    <p class="bloque">Cómo se usa · 2.8 Ligar el lead de SaleU · Paso 3 de 3</p>
+    <p class="bloque">Cómo hago · 2.8 Ligar el lead de SaleU · Paso 3 de 3</p>
     <h3>En «Lo que le ha pasado» queda «Ligado al lead… de SaleU», con quién y cuándo</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> El renglón nuevo queda arriba, con la firma de quien ligó y la hora.</li>
-      <li><b>Qué pasa después:</b> Si SaleU tiene actividades de ese lead (cita, prueba de manejo, crédito, venta), al abrir la ficha la app las suma aquí con la firma CRM y la hora de SaleU.</li>
+      <li><b>Automático:</b> Si SaleU tiene actividades de ese lead (cita, prueba de manejo, crédito, venta), al abrir la ficha la app las suma aquí con la firma CRM y la hora de SaleU.</li>
       <li><b>Ojo:</b> Esas actividades solo se ven: no abren ni cierran ningún asunto. En esta captura el lead no trae ninguna, por eso solo sale «Ligado».</li>
     </ul>
     <figure><img src="capturas/guia/2.8-3-historia.png" alt="La historia del prospecto con el renglón Ligado al lead de SaleU arriba"><i class="marco" style="left:7.4%;top:13.6%;width:30.9%;height:6.9%"><b>Ligado al lead</b></i></figure>
   </section>
 
   <section class="seccion captura paso capitulo" id="g29">
-    <p class="bloque">Cómo se usa · 2.9</p>
+    <p class="bloque">Cómo hago · 2.9</p>
     <h2>Pasar un prospecto a otro asesor</h2>
     <ul class="renglones">
       <li>Cuando un prospecto debe llevarlo otro asesor, el gerente de la sucursal lo pasa desde su ficha.</li>
       <li>Solo lo pasa el gerente (y Admin), a un asesor de la sucursal donde nació el prospecto. El asesor anterior deja de verlo.</li>
       <li>Dos pasos: dónde está «cambiar» · elegir al asesor y confirmar.</li>
+      <li><b>Ten a la mano:</b> a qué asesor de la sucursal se lo pasas y por qué.</li>
     </ul>
     <figure><img src="capturas/guia/2.9-1-ficha.png" alt="La ficha de un prospecto vista por el gerente, con «cambiar» junto a quien lo lleva"></figure>
   </section>
 
   <section class="seccion captura paso" id="g29-1">
-    <p class="bloque">Cómo se usa · 2.9 Pasar a otro asesor · Paso 1 de 2</p>
+    <p class="bloque">Cómo hago · 2.9 Pasar a otro asesor · Paso 1 de 2</p>
     <h3>Abre la ficha del prospecto y toca «cambiar», junto a quien lo lleva</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Bajo el nombre van el folio, el asesor que lo lleva hoy y, pegado a él, «cambiar».</li>
@@ -771,7 +787,7 @@
   </section>
 
   <section class="seccion captura paso" id="g29-2">
-    <p class="bloque">Cómo se usa · 2.9 Pasar a otro asesor · Paso 2 de 2</p>
+    <p class="bloque">Cómo hago · 2.9 Pasar a otro asesor · Paso 2 de 2</p>
     <h3>Elige al asesor, anota el motivo si quieres y toca «Pasar a…»</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> En «Asesor» salen solo los asesores de esa sucursal, sin quien ya lo lleva. El botón dice a quién se lo pasas.</li>
@@ -785,22 +801,23 @@
   </section>
 
   <section class="seccion captura paso capitulo" id="g210">
-    <p class="bloque">Cómo se usa · 2.10</p>
+    <p class="bloque">Cómo hago · 2.10</p>
     <h2>Entregar la unidad a un prospecto</h2>
     <ul class="renglones">
       <li>Entrega es la salida del prospecto. Al cerrarla sale de los vivos y nacen la Encuesta de satisfacción y la 1ª cita de servicio.</li>
       <li>Se cierra cuando la persona ya recibió su unidad. Sin identificación no se puede cerrar; sin unidad asignada, solo avisa.</li>
       <li>Tres pasos: lo que Entrega exige · abrirla y cerrarla · lo que pasa al cerrarla.</li>
+      <li><b>Ten a la mano:</b> su identificación ya en el Expediente (<a href="#g27">2.7</a>) y su unidad asignada (<a href="#g26">2.6</a>).</li>
     </ul>
     <figure><img src="capturas/guia/2.10-1-antes.png" alt="La ficha de un prospecto con la unidad asignada y sin identificación, donde empieza Entregar"></figure>
   </section>
 
   <section class="seccion captura paso" id="g210-1">
-    <p class="bloque">Cómo se usa · 2.10 Entregar · Paso 1 de 3</p>
+    <p class="bloque">Cómo hago · 2.10 Entregar · Paso 1 de 3</p>
     <h3>Entrega pide la identificación y avisa si falta la unidad</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Sin identificación, el chip bajo el nombre y «Lo que sigue» la piden. La unidad ya aparece asignada en el Camino.</li>
-      <li><b>Qué pasa después:</b> Al sumarla en el Expediente (2.7), el chip la enseña y la historia la anota. «Lo que sigue» pasa al asunto que siga abierto.</li>
+      <li><b>Qué pasa después:</b> Al sumarla en el Expediente (<a href="#g27">2.7</a>), el chip la enseña y la historia la anota. «Lo que sigue» pasa al asunto que siga abierto.</li>
       <li><b>Ojo:</b> Sin identificación no se puede cerrar Entrega. Sin unidad asignada, su panel solo avisa: «La unidad todavía no está asignada».</li>
     </ul>
     <figure class="dos">
@@ -810,11 +827,11 @@
   </section>
 
   <section class="seccion captura paso" id="g210-2">
-    <p class="bloque">Cómo se usa · 2.10 Entregar · Paso 2 de 3</p>
+    <p class="bloque">Cómo hago · 2.10 Entregar · Paso 2 de 3</p>
     <h3>Toca Entrega, anota su primer toque y ciérrala con «Mantén para terminar»</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Entrega empieza «sin abrir»: la abre lo que anotas en «¿Dónde va?».</li>
-      <li><b>Qué pasa después:</b> Tras anotar, Entrega queda «abierta» y sale «Mantén para terminar»: se sostiene un segundo (2.4). La ventana pregunta «¿Cómo terminó?» con «Entregada» ya escrito, y «Terminó» la cierra.</li>
+      <li><b>Qué pasa después:</b> Tras anotar, Entrega queda «abierta» y sale «Mantén para terminar»: se sostiene un segundo (<a href="#g24">2.4</a>). La ventana pregunta «¿Cómo terminó?» con «Entregada» ya escrito, y «Terminó» la cierra.</li>
       <li><b>Ojo:</b> Los demás asuntos abiertos no frenan la Entrega: quedan abiertos y «Lo que sigue» los señala. Ciérrala cuando la persona ya recibió su unidad.</li>
     </ul>
     <figure class="dos">
@@ -824,10 +841,10 @@
   </section>
 
   <section class="seccion captura paso" id="g210-3">
-    <p class="bloque">Cómo se usa · 2.10 Entregar · Paso 3 de 3</p>
+    <p class="bloque">Cómo hago · 2.10 Entregar · Paso 3 de 3</p>
     <h3>Al cerrarla, sale de los vivos y nacen la Encuesta y la 1ª cita de servicio</h3>
     <ul class="renglones">
-      <li><b>Fíjate en:</b> En la ficha, Entrega queda en «¡entregado!» y aparecen solos dos asuntos nuevos: Encuesta de satisfacción y 1ª cita de servicio.</li>
+      <li><b>Automático:</b> En la ficha, Entrega queda en «¡entregado!» y aparecen solos dos asuntos nuevos: Encuesta de satisfacción y 1ª cita de servicio.</li>
       <li><b>Qué pasa después:</b> En la lista baja al final, atenuado y con su sello «entregado», mientras le quede un asunto abierto. El saludo solo cuenta a los vivos.</li>
     </ul>
     <figure class="dos">
@@ -837,34 +854,35 @@
   </section>
 
   <section class="seccion captura paso capitulo" id="g211">
-    <p class="bloque">Cómo se usa · 2.11</p>
+    <p class="bloque">Cómo hago · 2.11</p>
     <h2>Abrir un asunto y anotar desde el tablero</h2>
     <ul class="renglones">
       <li>El tablero acomoda a los prospectos vivos por asunto: cada columna es un asunto y cada tarjeta, un prospecto.</li>
       <li>Sirve para ver de un vistazo en qué va cada uno, abrirle un asunto o dejarle una nota sin entrar a su ficha.</li>
       <li>Tres pasos: las columnas por asunto · arrastrar una tarjeta para abrirle otro asunto · el lápiz para anotar.</li>
+      <li><b>Ten a la mano:</b> una computadora con ratón para arrastrar; con el dedo, el asunto se abre desde la ficha (<a href="#g25">2.5</a>).</li>
     </ul>
     <figure><img src="capturas/guia/2.11-1-columnas.png" alt="El tablero, con una columna por asunto"></figure>
   </section>
 
   <section class="seccion captura paso" id="g211-1">
-    <p class="bloque">Cómo se usa · 2.11 El tablero · Paso 1 de 3</p>
+    <p class="bloque">Cómo hago · 2.11 El tablero · Paso 1 de 3</p>
     <h3>Cada columna es un asunto y cada tarjeta, un prospecto</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> «Sin asunto abierto» va primero: ahí están los prospectos que no tienen ningún asunto abierto. El número de cada columna dice cuántos hay.</li>
-      <li><b>Qué pasa después:</b> Las tarjetas se acomodan solas: aparecen en la columna de un asunto cuando se abre y salen cuando se cierra.</li>
+      <li><b>Automático:</b> Las tarjetas se acomodan solas: aparecen en la columna de un asunto cuando se abre y salen cuando se cierra.</li>
       <li><b>Ojo:</b> Un prospecto con varios asuntos abiertos sale en varias columnas. Las columnas sin prospectos van al final: desliza a la derecha para verlas.</li>
     </ul>
     <figure><img src="capturas/guia/2.11-1-columnas.png" alt="El tablero con sus columnas por asunto"><i class="marco" style="left:7.3%;top:33%;width:18.1%;height:4.1%"><b>Sin asunto abierto</b></i><i class="marco derecha" style="left:45.4%;top:33%;width:18.1%;height:4.1%"><b>Un asunto</b></i><i class="marco derecha" style="left:64.8%;top:38.3%;width:17%;height:11.8%"><b>Una tarjeta</b></i></figure>
   </section>
 
   <section class="seccion captura paso" id="g211-2">
-    <p class="bloque">Cómo se usa · 2.11 El tablero · Paso 2 de 3</p>
+    <p class="bloque">Cómo hago · 2.11 El tablero · Paso 2 de 3</p>
     <h3>Arrastra una tarjeta a otro asunto, suéltala y escribe qué pasó</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> Mientras arrastras, las columnas donde se puede soltar dicen «suelta aquí para abrir…» y la que tienes debajo se resalta. Si una no lo dice, ese asunto ya está abierto o tu rol no puede abrirlo.</li>
       <li><b>Qué pasa después:</b> Al soltarla, una ventana pide una línea obligatoria: qué pasó con ese asunto. Con «Abrir», el asunto queda abierto, la línea queda en su historia y la tarjeta aparece en esa columna.</li>
-      <li><b>Ojo:</b> Solo se arrastra con el ratón; con el dedo, el asunto se abre desde la ficha con «+ Asunto» (2.5). Esc cancela el arrastre.</li>
+      <li><b>Ojo:</b> Solo se arrastra con el ratón; con el dedo, el asunto se abre desde la ficha con «+ Asunto» (<a href="#g25">2.5</a>). Esc cancela el arrastre.</li>
     </ul>
     <figure class="dos">
       <div><img src="capturas/guia/2.11-2-antes.png" alt="Una tarjeta arrastrada sobre la columna del asunto donde se va a soltar"><i class="marco derecha" style="left:72.6%;top:36.8%;width:12.5%;height:4.2%"><b>Tu tarjeta</b></i><i class="marco derecha" style="left:64.8%;top:50.9%;width:17%;height:5.6%"><b>Suelta aquí</b></i><span>Al arrastrar</span></div>
@@ -873,7 +891,7 @@
   </section>
 
   <section class="seccion captura paso" id="g211-3">
-    <p class="bloque">Cómo se usa · 2.11 El tablero · Paso 3 de 3</p>
+    <p class="bloque">Cómo hago · 2.11 El tablero · Paso 3 de 3</p>
     <h3>Toca el lápiz de una tarjeta para anotar sin abrir la ficha</h3>
     <ul class="renglones">
       <li><b>Fíjate en:</b> El lápiz sale al pasar el ratón por la tarjeta (con el dedo se ve siempre). En «Sin asunto abierto» no hay lápiz: no hay un asunto donde anotar.</li>
@@ -886,8 +904,16 @@
     </figure>
   </section>
 
+  <section class="seccion capitulo" id="consulta">
+    <p class="bloque">Consulta</p>
+    <h2>Cómo funciona</h2>
+    <ul class="renglones">
+      <li>Para resolver una duda: los once asuntos, las reglas, lo que la app trae sola, quién ve qué y lo que todavía no hace.</li>
+    </ul>
+  </section>
+
   <section class="seccion captura capitulo" id="l7">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1</p>
     <h2>El mapa: once asuntos</h2>
     <ul class="renglones">
       <li>Cinco se mueven solos o nacen solos.</li>
@@ -897,7 +923,7 @@
   </section>
 
   <section class="seccion captura rama" id="l8">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1 El mapa</p>
     <h3>Unidad: el auto que quiere y el que se le asigna</h3>
     <ul class="renglones">
       <li><b>Quién la mueve:</b> el asesor, del inventario o por VIN.</li>
@@ -908,7 +934,7 @@
   </section>
 
   <section class="seccion captura rama" id="l9">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1 El mapa</p>
     <h3>Recepción de Documentos: los papeles necesarios</h3>
     <ul class="renglones">
       <li><b>Quién la mueve:</b> el asesor sube; la app decide.</li>
@@ -919,7 +945,7 @@
   </section>
 
   <section class="seccion captura rama" id="l10">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1 El mapa</p>
     <h3>Solicitud de Crédito: de la petición a la respuesta de la financiera</h3>
     <ul class="renglones">
       <li><b>Quién la mueve:</b> F&amp;I.</li>
@@ -930,7 +956,7 @@
   </section>
 
   <section class="seccion captura rama" id="l11">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1 El mapa</p>
     <h3>Contrato de Crédito: la firma</h3>
     <ul class="renglones">
       <li><b>Quién la mueve:</b> F&amp;I.</li>
@@ -941,7 +967,7 @@
   </section>
 
   <section class="seccion captura rama" id="l12">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1 El mapa</p>
     <h3>Desembolso: hasta que la financiera suelta el dinero</h3>
     <ul class="renglones">
       <li><b>Quién la mueve:</b> F&amp;I.</li>
@@ -952,7 +978,7 @@
   </section>
 
   <section class="seccion captura rama" id="l13">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1 El mapa</p>
     <h3>Pago: cuánto ha pagado</h3>
     <ul class="renglones">
       <li><b>Quién la mueve:</b> finanzas; la app lo lee. El asesor solo anota.</li>
@@ -963,7 +989,7 @@
   </section>
 
   <section class="seccion captura rama" id="l14">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1 El mapa</p>
     <h3>Factura: la venta registrada</h3>
     <ul class="renglones">
       <li><b>Quién la mueve:</b> finanzas; la app lo lee.</li>
@@ -974,7 +1000,7 @@
   </section>
 
   <section class="seccion captura rama" id="l15">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1 El mapa</p>
     <h3>Seguro: la póliza</h3>
     <ul class="renglones">
       <li><b>Quién la mueve:</b> el asesor.</li>
@@ -985,7 +1011,7 @@
   </section>
 
   <section class="seccion captura rama" id="l16">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1 El mapa</p>
     <h3>Entrega: citar, revisar, firmar. La salida</h3>
     <ul class="renglones">
       <li><b>Quién la mueve:</b> el asesor.</li>
@@ -996,7 +1022,7 @@
   </section>
 
   <section class="seccion captura rama" id="l17">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1 El mapa</p>
     <h3>Encuesta de satisfacción: la llamada al cliente</h3>
     <ul class="renglones">
       <li><b>Quién la mueve:</b> por definir (falta quién).</li>
@@ -1007,7 +1033,7 @@
   </section>
 
   <section class="seccion captura rama" id="l18">
-    <p class="bloque">Las once ramas</p>
+    <p class="bloque">Consulta · 3.1 El mapa</p>
     <h3>1ª cita de servicio: el primer mantenimiento</h3>
     <ul class="renglones">
       <li><b>Quién la mueve:</b> por definir (falta quién).</li>
@@ -1018,7 +1044,7 @@
   </section>
 
   <section class="seccion capitulo" id="l19">
-    <p class="bloque">Las reglas y lo que pasa por detrás</p>
+    <p class="bloque">Consulta · 3.2</p>
     <h2>Cuatro reglas</h2>
     <figure class="iconos">
       <div>
@@ -1040,9 +1066,9 @@
     </figure>
   </section>
 
-  <section class="seccion captura" id="l20">
-    <p class="bloque">Las reglas y lo que pasa por detrás</p>
-    <h3>Lo invisible: lo que la app trae sola</h3>
+  <section class="seccion captura capitulo" id="l20">
+    <p class="bloque">Consulta · 3.3</p>
+    <h2>Lo invisible: lo que la app trae sola</h2>
     <ul class="renglones">
       <li>Finanzas: Pago y Factura, cuatro veces al día y al abrir la ficha.</li>
       <li>El lector de la INE y el inventario del DMS.</li>
@@ -1051,9 +1077,9 @@
     <figure class="dibujo"><img src="capturas/20-lo-invisible.png" alt="La app al centro y las cinco fuentes alrededor"></figure>
   </section>
 
-  <section class="seccion" id="l21">
-    <p class="bloque">Las reglas y lo que pasa por detrás</p>
-    <h3>Quién entra y qué ve</h3>
+  <section class="seccion capitulo" id="l21">
+    <p class="bloque">Consulta · 3.4</p>
+    <h2>Quién entra y qué ve</h2>
     <ul class="renglones">
       <li>Permisos por asunto: sin Unidad no se ve el inventario.</li>
     </ul>
@@ -1071,52 +1097,11 @@
     </figure>
   </section>
 
-  <section class="seccion capitulo" id="l22">
-    <p class="bloque">Desde mañana</p>
-    <h2>Cinco hábitos</h2>
-    <figure class="iconos">
-      <div>
-        <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="icono" cx="40" cy="34" r="15"/><path class="icono" d="M14 84 c0-18 12-28 26-28 s26 10 26 28"/><line class="icono icono-acento" x1="76" y1="44" x2="76" y2="68"/><line class="icono icono-acento" x1="64" y1="56" x2="88" y2="56"/></svg>
-        <span>Dar de alta al momento.</span>
-      </div>
-      <div>
-        <svg viewBox="0 0 100 100" aria-hidden="true"><path class="icono" d="M26 74 L30 60 L68 22 L78 32 L40 70 Z"/><line class="icono icono-acento" x1="62" y1="28" x2="72" y2="38"/><line class="icono" x1="22" y1="86" x2="78" y2="86"/></svg>
-        <span>Anotar lo que pasa.</span>
-      </div>
-      <div>
-        <svg viewBox="0 0 100 100" aria-hidden="true"><rect class="icono" x="22" y="22" width="56" height="56" rx="8"/><polyline class="icono icono-acento" points="36,52 46,62 66,40"/></svg>
-        <span>Cerrar la rama.</span>
-      </div>
-      <div>
-        <svg viewBox="0 0 100 100" aria-hidden="true"><path class="icono" d="M30 14 H58 L74 30 V86 H30 Z"/><path class="icono" d="M58 14 V30 H74"/><line class="icono icono-acento" x1="52" y1="72" x2="52" y2="46"/><polyline class="icono icono-acento" points="42,56 52,46 62,56"/></svg>
-        <span>Subir los papeles.</span>
-      </div>
-      <div>
-        <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="icono" cx="32" cy="50" r="15"/><line class="icono icono-acento" x1="47" y1="50" x2="88" y2="50"/><line class="icono icono-acento" x1="72" y1="50" x2="72" y2="63"/><line class="icono icono-acento" x1="84" y1="50" x2="84" y2="60"/></svg>
-        <span>Cerrar Entrega.</span>
-      </div>
-    </figure>
-  </section>
-
-  <section class="seccion captura" id="l23">
-    <p class="bloque">Desde mañana</p>
-    <h3>Dónde está: nucleoadc.ai/prospectos</h3>
-    <ul class="renglones">
-      <li>En el menú del Hub.</li>
-      <li>Se instala en el teléfono.</li>
-    </ul>
-    <figure class="dos">
-      <div><img src="capturas/23a-menu-del-hub.png" alt="El menú del Hub con Prospectos"><span>El menú del Hub</span></div>
-      <div><img src="capturas/23b-en-el-telefono.png" alt="La app en el teléfono"><span>En el teléfono</span></div>
-    </figure>
-  </section>
-
-  <section class="seccion texto" id="l24">
-    <p class="bloque">Desde mañana</p>
-    <h3>Lo que falta, de frente</h3>
+  <section class="seccion texto capitulo" id="l24">
+    <p class="bloque">Consulta · 3.5</p>
+    <h2>Lo que todavía no hace</h2>
     <ul class="renglones">
       <li>El apartado antes de la factura no se ve: se anota.</li>
-      <li>Quién hace la Encuesta de satisfacción y la 1ª cita de servicio: por definir.</li>
       <li>La lista aún no trae lo que busca el prospecto, el teléfono y el VIN para buscar, «ya vino antes» ni la fecha de entrega.</li>
     </ul>
   </section>
